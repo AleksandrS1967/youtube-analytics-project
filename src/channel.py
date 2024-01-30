@@ -51,3 +51,30 @@ class Channel:
     def get_service(cls):
         """возвращает объект для работы с YouTube API"""
         return cls.object_list[0]
+
+    def __str__(self):
+        return f"'{self.title} ({self.url})'"
+
+    def __add__(self, other):
+        return int(self.channel_description) + int(other.channel_description)
+
+    def __sub__(self, other):
+        return int(self.channel_description) - int(other.channel_description)
+
+    def __gt__(self, other):
+        return int(self.channel_description) > int(other.channel_description)
+
+    def __ge__(self, other):
+        return int(self.channel_description) >= int(other.channel_description)
+
+    def __lt__(self, other):
+        return int(self.channel_description) < int(other.channel_description)
+
+    def __le__(self, other):
+        return int(self.channel_description) <= int(other.channel_description)
+
+    def __eq__(self, other):
+        return int(self.channel_description) == int(other.channel_description)
+
+
+
