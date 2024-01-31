@@ -52,23 +52,30 @@ class Channel:
         """возвращает объект для работы с YouTube API"""
         return cls.object_list[0]
 
+    def chec(self, data):
+        if data.isdigit():
+            return int(data)
+        else:
+            return False
+
+
     def __str__(self):
         return f"'{self.title} ({self.url})'"
 
     def __add__(self, other):
-        return int(self.channel_description) + int(other.channel_description)
+        return self.chec(self.channel_description) + self.chec(other.channel_description)
 
     def __sub__(self, other):
-        return int(self.channel_description) - int(other.channel_description)
+        return self.chec(self.channel_description) - self.chec(other.channel_description)
 
     def __gt__(self, other):
-        return int(self.channel_description) > int(other.channel_description)
+        return self.chec(self.channel_description) > self.chec(other.channel_description)
 
     def __ge__(self, other):
-        return int(self.channel_description) >= int(other.channel_description)
+        return self.chec(self.channel_description) >= self.chec(other.channel_description)
 
     def __lt__(self, other):
-        return int(self.channel_description) < int(other.channel_description)
+        return self.chec(self.channel_description) < self.chec(other.channel_description)
 
     def __le__(self, other):
         return int(self.channel_description) <= int(other.channel_description)
