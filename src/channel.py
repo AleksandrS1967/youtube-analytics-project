@@ -9,6 +9,7 @@ youtube = build('youtube', 'v3', developerKey=api_key)
 class Channel:
     """Класс для ютуб-канала"""
     object_list = []
+
     def __init__(self, channel_id: str) -> None:
         """Экземпляр инициализируется id канала. Дальше все данные будут подтягиваться по API."""
         self.__channel_id = channel_id
@@ -16,7 +17,7 @@ class Channel:
         self.title = self.channel['items'][0]["snippet"]['title']
         self.channel_description = self.channel['items'][0]["snippet"]["description"]
         self.url = f'https://www.youtube.com/channel/{channel_id}'
-        self.channel_description = self.channel['items'][0]['statistics']['subscriberCount']
+        self.subscriberCount = self.channel['items'][0]['statistics']['subscriberCount']
         self.video_count = self.channel['items'][0]['statistics']['videoCount']
         self.count_views = self.channel['items'][0]['statistics']['viewCount']
         self.object_list.append(self)
@@ -34,6 +35,7 @@ class Channel:
             'title': f'{self.title}',
             'channel_description': f'{self.channel_description}',
             'url': f'{self.url}',
+            'subscriberCount': f'{self.subscriberCount}',
             'video_count': f'{self.video_count}',
             'count_views': f'{self.count_views}'
         }
@@ -53,35 +55,29 @@ class Channel:
         return cls.object_list[0]
 
     def chec(self, data):
-        if data.isdigit():
+        if isinstance(self, Channel):
             return int(data)
-        else:
-            return False
-
 
     def __str__(self):
         return f"'{self.title} ({self.url})'"
 
     def __add__(self, other):
-        return self.chec(self.channel_description) + self.chec(other.channel_description)
+        return self.chec(self.subscriberCount) + self.chec(other.subscriberCount)
 
     def __sub__(self, other):
-        return self.chec(self.channel_description) - self.chec(other.channel_description)
+        return self.chec(self.subscriberCount) - self.chec(other.subscriberCount)
 
     def __gt__(self, other):
-        return self.chec(self.channel_description) > self.chec(other.channel_description)
+        return self.chec(self.subscriberCount) > self.chec(other.subscriberCount)
 
     def __ge__(self, other):
-        return self.chec(self.channel_description) >= self.chec(other.channel_description)
+        return self.chec(self.subscriberCount) >= self.chec(other.subscriberCount)
 
     def __lt__(self, other):
-        return self.chec(self.channel_description) < self.chec(other.channel_description)
+        return self.chec(self.subscriberCount) < self.chec(other.subscriberCount)
 
     def __le__(self, other):
-        return int(self.channel_description) <= int(other.channel_description)
+        return self.chec(self.subscriberCount) <= self.chec(other.subscriberCount)
 
     def __eq__(self, other):
-        return int(self.channel_description) == int(other.channel_description)
-
-
-
+        return self.chec(self.subscriberCount) == self.chec(other.subscriberCount)
