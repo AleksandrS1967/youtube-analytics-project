@@ -54,30 +54,30 @@ class Channel:
         """возвращает объект для работы с YouTube API"""
         return cls.object_list[0]
 
-    def chec(self, data):
-        if isinstance(self, Channel):
+    def chec(self, data, data1):
+        if isinstance(self, Channel) and isinstance(data1, Channel):
             return int(data)
 
     def __str__(self):
         return f"'{self.title} ({self.url})'"
 
     def __add__(self, other):
-        return self.chec(self.subscriberCount) + self.chec(other.subscriberCount)
+        return self.chec(self.subscriberCount, other) + self.chec(other.subscriberCount, other)
 
     def __sub__(self, other):
-        return self.chec(self.subscriberCount) - self.chec(other.subscriberCount)
+        return self.chec(self.subscriberCount, other) - self.chec(other.subscriberCount, other)
 
     def __gt__(self, other):
-        return self.chec(self.subscriberCount) > self.chec(other.subscriberCount)
+        return self.chec(self.subscriberCount, other) > self.chec(other.subscriberCount, other)
 
     def __ge__(self, other):
-        return self.chec(self.subscriberCount) >= self.chec(other.subscriberCount)
+        return self.chec(self.subscriberCount, other) >= self.chec(other.subscriberCount, other)
 
     def __lt__(self, other):
-        return self.chec(self.subscriberCount) < self.chec(other.subscriberCount)
+        return self.chec(self.subscriberCount, other) < self.chec(other.subscriberCount, other)
 
     def __le__(self, other):
-        return self.chec(self.subscriberCount) <= self.chec(other.subscriberCount)
+        return self.chec(self.subscriberCount, other) <= self.chec(other.subscriberCount, other)
 
     def __eq__(self, other):
-        return self.chec(self.subscriberCount) == self.chec(other.subscriberCount)
+        return self.chec(self.subscriberCount, other) == self.chec(other.subscriberCount, other)
